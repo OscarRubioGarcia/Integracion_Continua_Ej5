@@ -19,11 +19,8 @@ pipeline
                 script
                 {
                     year_actual = new Date().getYear().toInteger()
-                    println("Año actual:" + year_actual)
                     def date = new SimpleDateFormat("dd/MM/yyyy").parse(YEAR_EDAD)
-                    println("Año Edad: " + date)
                     edad = year_actual - date.getYear().toInteger()
-                    println("Año Edad: " + date.getYear().toInteger())
                     println("Edad: ${edad}")
                 }
             }
