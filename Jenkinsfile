@@ -1,4 +1,4 @@
-import java.text.SimpleDateFormat
+import java.text.SimpleDateFormat 
 
 pipeline
 {
@@ -7,12 +7,8 @@ pipeline
     environment
     {
         RUTA_FICHERO = "C:\\PRUEBA_JENKINS.txt"
-        POBLACION_TOTAL = 220020
-    }
-    
-    options
-    {
-        timeout(time:5,unit:"MINUTES")
+        YEAR_EDAD = "1995"
+        YEAR_ACTUAL = new Date().getYear()
     }
     
     stages
@@ -23,8 +19,8 @@ pipeline
             {
                 script
                 {
-                    poblacion_neta = POBLACION_TOTAL.toInteger() * 0.8
-                    println("Poblacion_neta Calculada. ${poblacion_neta}")
+                    edad = YEAR_ACTUAL.toInteger() - YEAR_EDAD.toInteger()
+                    println("Edad: ${edad}")
                 }
             }
         }
@@ -34,30 +30,8 @@ pipeline
             {
                 script
                 {
-                    fecha = new Date()
-                    formato = new SimpleDateFormat("ddMMyyyy")
-                    formateado = formato.format(fecha)
-                    writeFile(file: "${RUTA_FICHERO}", text:poblacion_neta.toString())
+                    writeFile(file: "${RUTA_FICHERO}", text:edad.toString())
                     println("El fichero fue escrito.")
-                }
-            }
-        }
-        stage("Stage 3")
-        {
-            when 
-            {
-                expression
-                {
-                    dia = new Date().getDay()
-                    mapa = [1:"L",2:"M",3:"Mi",4:"J",5:"V",6:"S",7:"D"]
-                    return mapa[dia] == "Mi"
-                }
-            }
-            steps
-            {
-                script
-                {
-                    println ("SOLO LOS MIERCOLES: El build actual es: ${env.BUILD_NUMBER}")
                 }
             }
         }
