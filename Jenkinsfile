@@ -8,7 +8,7 @@ pipeline
     {
         RUTA_FICHERO = "C:\\PRUEBA_JENKINS.txt"
         YEAR_EDAD = "1995"
-        YEAR_ACTUAL = new Date().getYear()
+        YEAR_ACTUAL = "2024"
     }
     
     stages
