@@ -7,8 +7,7 @@ pipeline
     environment
     {
         RUTA_FICHERO = "C:\\PRUEBA_JENKINS.txt"
-        YEAR_EDAD = "1995"
-        YEAR_ACTUAL = "2024"
+        YEAR_EDAD = "01/08/1995"
     }
     
     stages
@@ -19,7 +18,12 @@ pipeline
             {
                 script
                 {
-                    edad = YEAR_ACTUAL.toInteger() - YEAR_EDAD.toInteger()
+                    year_actual = new Date().getYear().toInteger()
+                    println("Año actual:" + year_actual)
+                    def date = new SimpleDateFormat("dd/MM/yyyy").parse(YEAR_EDAD)
+                    println("Año Edad: " + date)
+                    edad = year_actual - date.getYear().toInteger()
+                    println("Año Edad: " + date.getYear().toInteger())
                     println("Edad: ${edad}")
                 }
             }
@@ -54,4 +58,3 @@ pipeline
         }
     }
 }
-
